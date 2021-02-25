@@ -6,7 +6,7 @@
 struct node
 {
 	struct node * left, * right; // branches
-	char data; // for variable ('X'), operators ('+', '-', '=') and numbers ('0' to '9')
+	char data; // for variable ('X'), operators ('+', '-', '*') and numbers ('0' to '9')
 };
 
 struct node * fill_tree (); // parser 
@@ -16,14 +16,14 @@ int    calculate_tree (struct node * tree, int variable); // calculator
 
 int main ()
 {
-	struct node * tree = fill_tree(); // tree input
+	struct node * tree = fill_tree (); // tree input
 
 	int var = 0;
 	scanf ("%d", &var); // variable input
 
 	printf ("%d\n", calculate_tree(tree, var)); // calculation result output
 	
-	free_tree(tree); // tree destruction
+	free_tree (tree); // tree destruction
 
 	return 0;
 }
@@ -33,7 +33,7 @@ struct node * fill_tree ()
 {
 	char c = getchar();
 	
-	struct node * operand = (struct node *)malloc (sizeof (struct node));
+	struct node * operand = (struct node *) malloc (sizeof (struct node));
 
 	operand->left = operand->right = operand->data = NULL;
 	
@@ -47,15 +47,15 @@ struct node * fill_tree ()
 	}
 	else if (c == '(') // formulas
 	{
-		operand->left = fill_tree();
-		operand->data = getchar();
-		operand->right = fill_tree();
+		operand->left = fill_tree ();
+		operand->data = getchar ();
+		operand->right = fill_tree ();
 
-		assert (getchar() == ')'); // expecting ')' to come
+		assert (getchar () == ')'); // expecting ')' to come
 	}
 	else // parsing error
 	{
-		fprintf(stderr, "wrong formula format, check fill_tree function");
+		fprintf (stderr, "wrong formula format, check fill_tree function");
 	}
 
 	return operand;
